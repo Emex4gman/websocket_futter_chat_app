@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
+import 'package:socket_and_push/notification_helper.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:adhara_socket_io/adhara_socket_io.dart';
 
 void main() => runApp(MyApp());
 
@@ -31,7 +33,52 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  Notify notify = Notify.getInstance();
   TextEditingController _controller = TextEditingController();
+  SocketIOManager manager = SocketIOManager();
+  String text = '';
+  SocketOptions options =
+      SocketOptions('https://deb883b2.ngrok.io', nameSpace: '/admin',
+          // enableLogging: true,
+          transports: [Transports.WEB_SOCKET /*, Transports.POLLING*/]);
+  SocketIO socket;
+  @override
+  void initState() {
+    super.initState();
+    start();
+
+    // initSocket("buy");
+  }
+
+  start() async {
+    socket = await manager.createInstance(options);
+
+    socket.onConnect((data) {
+      print("connected...");
+      print(data);
+      //socket.emit("message", ["Hello world!"]);
+    });
+    socket.on("admin", (data) async {
+      print("admin");
+      print(data);
+      await notify.showNotification(
+          title: data['message'],
+          body:
+              """A new  ${data['data']['type']} trade with  ${data['data']['name']}. Amount: N${data['data']['ammount']} """,
+          id: 2);
+      // setState(() {
+      //   text = data.toString();
+      // });
+    });
+
+    socket.connect();
+    socket.onConnectError(handerr);
+    socket.onError(handerr);
+  }
+
+  handerr(error) {
+    // print(error.toString());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +105,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Text(snapshot.hasData ? '${snapshot.data}' : ''),
                 );
               },
-            )
+            ),
+            Text(text.toString()),
           ],
         ),
       ),
@@ -70,7 +118,11 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _sendMessage() {
+  void _sendMessage() async {
+    print('object');
+    // socket.on('buy', (data) {
+    //   print(data);
+    // });
     if (_controller.text.isNotEmpty) {
       widget.channel.sink.add(_controller.text);
     }
@@ -79,6 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void dispose() {
     widget.channel.sink.close();
+    manager.clearInstance(socket);
     super.dispose();
   }
 }

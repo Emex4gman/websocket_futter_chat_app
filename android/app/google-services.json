@@ -1,0 +1,77 @@
+{
+  "project_info": {
+    "project_number": "313587951304",
+    "firebase_url": "https://truthx-63f51.firebaseio.com",
+    "project_id": "truthx-63f51",
+    "storage_bucket": "truthx-63f51.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:313587951304:android:7b34bf1ea3ad9a309ea7fd",
+        "android_client_info": {
+          "package_name": "com.example.socket_and_push"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "313587951304-ujooil58j2d2fd7h6albqven702vg28m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_0rg6VduoHxMf6QejqSrrMa2qjYxccBQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "313587951304-ujooil58j2d2fd7h6albqven702vg28m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:313587951304:android:1b897a5ba99eb46b9ea7fd",
+        "android_client_info": {
+          "package_name": "com.truthx.truthx"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "313587951304-2nph5l8g98fb46vvtrksndb3uiisoa8f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.truthx.truthx",
+            "certificate_hash": "202c4bfad66c199c2dafd16f20e3a970cab5d1c4"
+          }
+        },
+        {
+          "client_id": "313587951304-ujooil58j2d2fd7h6albqven702vg28m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_0rg6VduoHxMf6QejqSrrMa2qjYxccBQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "313587951304-ujooil58j2d2fd7h6albqven702vg28m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

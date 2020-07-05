@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:socket_and_push/model/chat_message.dart';
+import 'package:websocket_futter_chat_app/model/chat_message.dart';
 
 class MyStream {
   static StreamController<String> controller =

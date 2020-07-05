@@ -1,4 +1,4 @@
-# socket_and_push
+# websocket_futter_chat_app
 
 A new Flutter project.
 

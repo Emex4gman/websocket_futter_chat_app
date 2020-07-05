@@ -1,4 +1,4 @@
-package com.example.socket_and_push
+package com.example.websocket_futter_chat_app
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

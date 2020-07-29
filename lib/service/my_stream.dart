@@ -5,6 +5,7 @@ import 'package:websocket_futter_chat_app/model/chat_message.dart';
 class MyStream {
   static MyStream _myStream;
   MyStream.createInstance();
+  //singlton Mystream class
   factory MyStream() {
     if (_myStream == null) {
       _myStream = MyStream.createInstance();
@@ -19,6 +20,7 @@ class MyStream {
     return _isProbablyActive[identifier] ?? false;
   }
 
+//creating different strems for different room
   createStream(String identifier) {
     if (isProbablyConnected(identifier)) {
       print('Stream is already active');
@@ -31,6 +33,7 @@ class MyStream {
     chatRooms[identifier] = [];
   }
 
+//load chat different chats based on the identifier
   loadChatsWithIdentifyer(String identifier) {
     streamContollers[identifier].sink.add(chatRooms[identifier]);
   }

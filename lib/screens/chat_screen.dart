@@ -1,8 +1,6 @@
-import 'package:adhara_socket_io/adhara_socket_io.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:websocket_futter_chat_app/model/chat_message.dart';
-import 'package:websocket_futter_chat_app/my_stream.dart';
+import 'package:websocket_futter_chat_app/service/my_stream.dart';
 import 'package:websocket_futter_chat_app/service/database_helper.dart';
 import 'package:websocket_futter_chat_app/service/socket_helper.dart';
 

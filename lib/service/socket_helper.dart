@@ -1,6 +1,6 @@
 import 'package:adhara_socket_io/adhara_socket_io.dart';
 import 'package:websocket_futter_chat_app/model/chat_message.dart';
-import 'package:websocket_futter_chat_app/my_stream.dart';
+import 'package:websocket_futter_chat_app/service/my_stream.dart';
 
 enum ROOMS { COED, MALE, FEMALE, TRANS }
 

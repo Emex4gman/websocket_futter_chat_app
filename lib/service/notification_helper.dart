@@ -53,7 +53,7 @@ class Notify {
         androidPlatformChannelSpecifics, iosNotificationDetails);
   }
 
-  NotificationDetails get _noSound {
+  NotificationDetails get noSound {
     final androidPlatformChannelSpecifics = AndroidNotificationDetails(
         'silent channel id',
         'silent channel name',

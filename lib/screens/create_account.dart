@@ -16,16 +16,11 @@ class _CreateAccountState extends State<CreateAccount> {
   final List<String> genderList = [
     'Male',
     'Female',
-    'Genderfluid',
-    'Trans Woman',
-    'Trans Man'
   ];
   final List<String> sexualOrintationList = [
     'Homosexual',
     'Hetrosexual',
     'Bisexual',
-    'Pansexual',
-    'Asexual'
   ];
   String gender = '';
   String sexualOrintation = '';
@@ -55,15 +50,9 @@ class _CreateAccountState extends State<CreateAccount> {
     await _dataBaseHelper.saveUser(user.toMap());
   }
 
-  pp() async {
-    // print((await _dataBaseHelper.getUser()).gender);
-    print("await _dataBaseHelper.getUser()");
-  }
-
   @override
   void initState() {
     super.initState();
-    pp();
   }
 
   @override

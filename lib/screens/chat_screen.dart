@@ -22,12 +22,11 @@ class _MyHomePageState extends State<ChatScreen> {
   DataBaseHelper _dataBaseHelper = DataBaseHelper();
   final SocketHelper _socketHelper = SocketHelper();
   TextEditingController _controller = TextEditingController();
-  String identifier = "";
-  String identifier2 = "";
+  String identifier = ""; //socket room identifier
+  String identifier2 = ""; //socket room identifier
   @override
   void initState() {
     super.initState();
-    // print(_dataBaseHelper.user.gender);
     joinChatRoom(_dataBaseHelper.user.gender.toLowerCase());
   }
 

@@ -32,19 +32,3 @@ class User {
     return map;
   }
 }
-
-@HiveType(typeId: 1)
-class UserHive {
-  @HiveField(0)
-  String userId;
-  @HiveField(1)
-  String dateOfBirth;
-  @HiveField(2)
-  bool isLoggedin;
-  @HiveField(3)
-  String color;
-  @HiveField(4)
-  String gender;
-  @HiveField(5)
-  String sexualOrintation;
-}

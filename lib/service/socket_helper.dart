@@ -5,7 +5,7 @@ import 'package:websocket_futter_chat_app/my_stream.dart';
 enum ROOMS { COED, MALE, FEMALE, TRANS }
 
 class SocketHelper {
-  String uri = "https://75549139934d.ngrok.io";
+  String uri = "https://d3ddc88e1607.ngrok.io";
   static SocketHelper _socketHelper;
   SocketHelper.createSocketHelperInstance();
   List<String> toPrint = ["trying to connect"];
@@ -27,9 +27,9 @@ class SocketHelper {
     }
     return _socketHelper;
   }
-  Future<void> initSocket(String identifier) async {
+  Future<void> initSocket({String identifier, MyStream streamContoller}) async {
     if (isProbablyConnected(identifier)) {
-      print('alredy connectd');
+      print('Socket is already connected');
       return;
     }
     _isProbablyConnected[identifier] = true;
@@ -45,19 +45,20 @@ class SocketHelper {
           "info": "new connection from adhara-socketio",
           "timestamp": DateTime.now().toString()
         },
-        // enableLogging: false,
+        enableLogging: false,
         transports: [
           Transports.WEB_SOCKET /*, Transports.POLLING*/
         ] //Enable required transport
         ));
 
     socket.onConnect((data) {
-      pprint("connected...");
-      pprint(data);
-      // sendMessage(identifier);
+      print("connected...");
     });
-    socket.on("message", (data) => pprint(data));
-    socket.on("$identifier", (data) => pprint(data));
+    socket.on("home", (data) => print(data));
+    socket.on("$identifier", (data) {
+      streamContoller.addChatWithIdentifyer(
+          identifier: identifier, value: ChatMessage(message: data));
+    });
     socket.connect();
     socket.onConnectError(pprint);
     socket.onConnectTimeout(pprint);
@@ -66,23 +67,14 @@ class SocketHelper {
     sockets[identifier] = socket;
   }
 
-  sendMessage(identifier) {
+  sendMessageE({String identifier, MyStream stream, String message}) {
     if (sockets[identifier] != null) {
-      pprint("sending message from '$identifier'...");
-      sockets[identifier].emit("$identifier", ["mole app"]);
-
-      pprint("Message emitted from '$identifier'...");
+      sockets[identifier].emit("$identifier", [message]);
     }
   }
 
-  sendMessageE(identifier, MyStream stream) {
-    if (sockets[identifier] != null) {
-      stream.addChat(ChatMessage(message: 'mole app'));
-      pprint("sending message from '$identifier'...");
-      sockets[identifier].emit("$identifier", ["mole app"]);
-
-      pprint("Message emitted from '$identifier'...");
-    }
+  handerr(error, namespcae) {
+    print('$namespcae: ${error.toString()}');
   }
 
   bool isProbablyConnected(String identifier) {
@@ -91,7 +83,6 @@ class SocketHelper {
 
   pprint(data) {
     print(data);
-    // toPrint.add(data);
   }
 
   dispose() {

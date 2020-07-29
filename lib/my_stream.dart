@@ -3,28 +3,46 @@ import 'dart:async';
 import 'package:websocket_futter_chat_app/model/chat_message.dart';
 
 class MyStream {
-  static StreamController<String> controller =
-      StreamController<String>.broadcast();
-
+  static MyStream _myStream;
+  MyStream.createInstance();
+  factory MyStream() {
+    if (_myStream == null) {
+      _myStream = MyStream.createInstance();
+    }
+    return _myStream;
+  }
   List<ChatMessage> chatList = [];
-  static StreamController<List<ChatMessage>> chatController =
-      StreamController<List<ChatMessage>>.broadcast();
-  Stream mysStream = controller.stream;
-  Stream<List<ChatMessage>> chatStream = chatController.stream;
-  // StreamSubscription<double> streamSubscription = mysStream.listen((value) {
-  //   print('Value from controller: $value');
-  // });
-  addChat(ChatMessage value) {
-    chatList.add(value);
-    chatController.add(chatList);
+  Map<String, List<ChatMessage>> chatRooms = {};
+  Map<String, StreamController<List<ChatMessage>>> streamContollers = {};
+  Map<String, bool> _isProbablyActive = {};
+  bool isProbablyConnected(String identifier) {
+    return _isProbablyActive[identifier] ?? false;
   }
 
-  add(value) {
-    controller.add(value);
+  createStream(String identifier) {
+    if (isProbablyConnected(identifier)) {
+      print('Stream is already active');
+      return;
+    }
+    _isProbablyActive[identifier] = true;
+    StreamController<List<ChatMessage>> controller =
+        new StreamController<List<ChatMessage>>.broadcast();
+    streamContollers[identifier] = controller;
+    chatRooms[identifier] = [];
   }
 
-  dispoas() {
-    chatController.close();
-    controller.close();
+  loadChatsWithIdentifyer(String identifier) {
+    streamContollers[identifier].sink.add(chatRooms[identifier]);
+  }
+
+  addChatWithIdentifyer({String identifier, ChatMessage value}) {
+    chatRooms[identifier].add(value);
+    loadChatsWithIdentifyer(identifier);
+  }
+
+  dispose() {
+    streamContollers.forEach((key, value) {
+      value.close();
+    });
   }
 }

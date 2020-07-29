@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 // import 'package:socket_and_push/model/user.dart';
 import 'package:websocket_futter_chat_app/model/user.dart';
 import 'package:websocket_futter_chat_app/common/common.dart';
+import 'package:websocket_futter_chat_app/screens/chat_screen.dart';
 import 'package:websocket_futter_chat_app/service/database_helper.dart';
 
 class CreateAccount extends StatefulWidget {
@@ -10,7 +11,7 @@ class CreateAccount extends StatefulWidget {
 }
 
 class _CreateAccountState extends State<CreateAccount> {
-  final DataBaseHelper _dataBaseHelper = DataBaseHelper();
+  DataBaseHelper _dataBaseHelper = DataBaseHelper();
   String dateOfBirth = "";
   final List<String> genderList = [
     'Male',
@@ -21,7 +22,7 @@ class _CreateAccountState extends State<CreateAccount> {
   ];
   final List<String> sexualOrintationList = [
     'Homosexual',
-    'Hetrosexctual',
+    'Hetrosexual',
     'Bisexual',
     'Pansexual',
     'Asexual'
@@ -44,12 +45,6 @@ class _CreateAccountState extends State<CreateAccount> {
   }
 
   createAccount() async {
-    // var userHive = UserHive()
-    //   ..userId = "123"
-    //   ..dateOfBirth = dateOfBirth
-    //   ..color = 'blue'
-    //   ..gender = gender
-    //   ..sexualOrintation = sexualOrintation;
     User user = User(
         color: 'blue',
         dateOfBirth: dateOfBirth,
@@ -61,7 +56,7 @@ class _CreateAccountState extends State<CreateAccount> {
   }
 
   pp() async {
-    print((await _dataBaseHelper.getUser()).toString());
+    // print((await _dataBaseHelper.getUser()).gender);
     print("await _dataBaseHelper.getUser()");
   }
 
@@ -82,8 +77,8 @@ class _CreateAccountState extends State<CreateAccount> {
         child: Padding(
           padding: const EdgeInsets.all(15.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            // mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               FlatButton(
                   color: Colors.amber,
@@ -159,6 +154,18 @@ class _CreateAccountState extends State<CreateAccount> {
                   createAccount();
                 },
                 child: Text('Create Account'),
+              )),
+              SizedBox(
+                height: 20,
+              ),
+              Center(
+                  child: RaisedButton(
+                color: Colors.amber,
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ChatScreen()));
+                },
+                child: Text('ENTER ROOMS'),
               ))
             ],
           ),

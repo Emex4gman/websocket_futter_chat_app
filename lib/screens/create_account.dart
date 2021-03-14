@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:socket_and_push/model/user.dart';
 import 'package:websocket_futter_chat_app/model/user.dart';
 import 'package:websocket_futter_chat_app/common/common.dart';
 import 'package:websocket_futter_chat_app/screens/chat_screen.dart';
@@ -25,12 +24,7 @@ class _CreateAccountState extends State<CreateAccount> {
   String gender = '';
   String sexualOrintation = '';
   void pickDate(context) async {
-    var resuilt = await showDatePicker(
-        context: context,
-        initialDatePickerMode: DatePickerMode.year,
-        initialDate: DateTime.now(),
-        firstDate: DateTime.parse('1800-07-20'),
-        lastDate: DateTime.now());
+    var resuilt = await showDatePicker(context: context, initialDatePickerMode: DatePickerMode.year, initialDate: DateTime.now(), firstDate: DateTime.parse('1800-07-20'), lastDate: DateTime.now());
     if (resuilt != null) {
       setState(() {
         dateOfBirth = resuilt.toString();
@@ -41,11 +35,12 @@ class _CreateAccountState extends State<CreateAccount> {
 
   createAccount() async {
     User user = User(
-        color: 'blue',
-        dateOfBirth: dateOfBirth,
-        gender: gender,
-        userId: "123",
-        sexualOrintation: sexualOrintation);
+      color: 'blue',
+      dateOfBirth: dateOfBirth,
+      gender: gender,
+      userId: "123",
+      sexualOrintation: sexualOrintation,
+    );
 
     await _dataBaseHelper.saveUser(user.toMap());
   }
@@ -69,11 +64,13 @@ class _CreateAccountState extends State<CreateAccount> {
             // mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              FlatButton(
-                  color: Colors.amber,
+              TextButton(
                   onPressed: () {
                     pickDate(context);
                   },
+                  style: TextButton.styleFrom(
+                    primary: Colors.amber,
+                  ),
                   child: Text('Select Date of birth')),
               SizedBox(height: 10),
               Text("DOB: $dateOfBirth"),
@@ -86,8 +83,7 @@ class _CreateAccountState extends State<CreateAccount> {
                     child: ButtonTheme(
                       alignedDropdown: true,
                       child: DropdownButtonFormField<String>(
-                          decoration:
-                              dropDownDecoration(hintText: 'select genger'),
+                          decoration: dropDownDecoration(hintText: 'select genger'),
                           // value: '1',
 
                           items: genderList
@@ -114,8 +110,7 @@ class _CreateAccountState extends State<CreateAccount> {
                     child: ButtonTheme(
                       alignedDropdown: true,
                       child: DropdownButtonFormField<String>(
-                          decoration: dropDownDecoration(
-                              hintText: 'sexual srientation'),
+                          decoration: dropDownDecoration(hintText: 'sexual srientation'),
                           // value: '1',
 
                           items: sexualOrintationList
@@ -137,8 +132,10 @@ class _CreateAccountState extends State<CreateAccount> {
                 height: 20,
               ),
               Center(
-                  child: RaisedButton(
-                color: Colors.amber,
+                  child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.amber,
+                ),
                 onPressed: () {
                   createAccount();
                 },
@@ -148,11 +145,12 @@ class _CreateAccountState extends State<CreateAccount> {
                 height: 20,
               ),
               Center(
-                  child: RaisedButton(
-                color: Colors.amber,
+                  child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.amber,
+                ),
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ChatScreen()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => ChatScreen()));
                 },
                 child: Text('ENTER ROOMS'),
               ))

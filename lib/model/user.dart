@@ -1,5 +1,3 @@
-import 'package:hive/hive.dart';
-
 class User {
   String dateOfBirth;
   // bool isLoggedin;
@@ -8,12 +6,7 @@ class User {
   String gender;
   String sexualOrintation;
 
-  User(
-      {this.color,
-      this.userId,
-      this.gender,
-      this.dateOfBirth,
-      this.sexualOrintation});
+  User({this.color, this.userId, this.gender, this.dateOfBirth, this.sexualOrintation});
   User.fromMap(Map map) {
     this.userId = map['userId'];
     this.color = map['color'];

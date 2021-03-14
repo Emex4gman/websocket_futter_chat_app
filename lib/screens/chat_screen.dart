@@ -35,10 +35,8 @@ class _MyHomePageState extends State<ChatScreen> {
       identifier = _dataBaseHelper.user.gender.toLowerCase();
       identifier2 = "coed";
     });
-    await _socketHelper.initSocket(
-        identifier: room, streamContoller: _myStream);
-    await _socketHelper.initSocket(
-        identifier: 'coed', streamContoller: _myStream);
+    await _socketHelper.initSocket(identifier: room, streamContoller: _myStream);
+    await _socketHelper.initSocket(identifier: 'coed', streamContoller: _myStream);
     _myStream.loadChatsWithIdentifyer(room);
     _myStream.loadChatsWithIdentifyer('coed');
   }
@@ -67,19 +65,15 @@ class _MyHomePageState extends State<ChatScreen> {
                       child: ListView(
                         scrollDirection: Axis.horizontal,
                         children: <Widget>[
-                          FlatButton(
+                          TextButton(
                               onPressed: () async {
                                 // await _socketHelper.initSocket('coed');
                                 if (_controller.text.isNotEmpty) {
-                                  _socketHelper.sendMessageE(
-                                      identifier: identifier,
-                                      stream: _myStream,
-                                      message: _controller.text);
+                                  _socketHelper.sendMessageE(identifier: identifier, stream: _myStream, message: _controller.text);
                                   _controller.text = "";
                                 }
                                 // _myStream.addChat(ChatMessage(message: 'data'));
                               },
-                              color: Colors.red,
                               child: Text('Message Admin Group'))
                         ],
                       ),
@@ -87,23 +81,19 @@ class _MyHomePageState extends State<ChatScreen> {
                     Form(
                       child: TextFormField(
                         controller: _controller,
-                        decoration:
-                            InputDecoration(labelText: 'Send a message'),
+                        decoration: InputDecoration(labelText: 'Send a message'),
                       ),
                     ),
                     StreamBuilder(
                       stream: _myStream.streamContollers[identifier].stream,
-                      builder:
-                          (context, AsyncSnapshot<List<ChatMessage>> snapshot) {
+                      builder: (context, AsyncSnapshot<List<ChatMessage>> snapshot) {
                         return snapshot.hasData
                             ? Expanded(
                                 child: ListView.builder(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 24.0),
+                                  padding: const EdgeInsets.symmetric(vertical: 24.0),
                                   itemCount: snapshot.data.length,
                                   itemBuilder: (context, index) {
-                                    return Text(
-                                        '${snapshot.data[index].message}');
+                                    return Text('${snapshot.data[index].message}');
                                   },
                                 ),
                               )
@@ -122,19 +112,15 @@ class _MyHomePageState extends State<ChatScreen> {
                       child: ListView(
                         scrollDirection: Axis.horizontal,
                         children: <Widget>[
-                          FlatButton(
+                          TextButton(
                               onPressed: () async {
                                 // await _socketHelper.initSocket('coed');
                                 if (_controller.text.isNotEmpty) {
-                                  _socketHelper.sendMessageE(
-                                      identifier: identifier2,
-                                      stream: _myStream,
-                                      message: _controller.text);
+                                  _socketHelper.sendMessageE(identifier: identifier2, stream: _myStream, message: _controller.text);
                                   _controller.text = "";
                                 }
                                 // _myStream.addChat(ChatMessage(message: 'data'));
                               },
-                              color: Colors.red,
                               child: Text('Message Code Group'))
                         ],
                       ),
@@ -142,23 +128,19 @@ class _MyHomePageState extends State<ChatScreen> {
                     Form(
                       child: TextFormField(
                         controller: _controller,
-                        decoration:
-                            InputDecoration(labelText: 'Send a message'),
+                        decoration: InputDecoration(labelText: 'Send a message'),
                       ),
                     ),
                     StreamBuilder(
                       stream: _myStream.streamContollers[identifier2].stream,
-                      builder:
-                          (context, AsyncSnapshot<List<ChatMessage>> snapshot) {
+                      builder: (context, AsyncSnapshot<List<ChatMessage>> snapshot) {
                         return snapshot.hasData
                             ? Expanded(
                                 child: ListView.builder(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 24.0),
+                                  padding: const EdgeInsets.symmetric(vertical: 24.0),
                                   itemCount: snapshot.data.length,
                                   itemBuilder: (context, index) {
-                                    return Text(
-                                        '${snapshot.data[index].message} -');
+                                    return Text('${snapshot.data[index].message} -');
                                   },
                                 ),
                               )
@@ -180,10 +162,7 @@ class _MyHomePageState extends State<ChatScreen> {
 
   void _sendMessage() async {
     if (_controller.text.isNotEmpty) {
-      _socketHelper.sendMessageE(
-          identifier: _dataBaseHelper.user.gender.toLowerCase(),
-          stream: _myStream,
-          message: _controller.text);
+      _socketHelper.sendMessageE(identifier: _dataBaseHelper.user.gender.toLowerCase(), stream: _myStream, message: _controller.text);
       _controller.text = "";
     }
   }

@@ -27,9 +27,9 @@ class MyStream {
       return;
     }
     _isProbablyActive[identifier] = true;
-    StreamController<List<ChatMessage>> controller =
-        new StreamController<List<ChatMessage>>.broadcast();
-    streamContollers[identifier] = controller;
+    // StreamController<List<ChatMessage>> controller =
+    //     new StreamController<List<ChatMessage>>.broadcast();
+    streamContollers[identifier] = new StreamController<List<ChatMessage>>.broadcast();
     chatRooms[identifier] = [];
   }
 
